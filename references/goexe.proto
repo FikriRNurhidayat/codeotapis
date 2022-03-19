@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option go_package = "github.com/fikrirnurhidayat/codeotapis/proto/goexe;proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Golang Executor Service";
+    version: "1.0";
+    contact: {
+      name: "Fikri Rahmat Nurhidayat";
+      url: "https://github.com/fikrirnurhidayat";
+      email: "fikrirnurhidayat@gmail.com";
+    };
+  };
+};
+
+service Goexe {
+  rpc Execute(ExecuteRequest) returns (ExecuteResponse) {
+    option (google.api.http) = {
+      post : "/v1/executions"
+      body : "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "Execute"
+      description: "Run golang code"
+      tags: "Goexe"
+    };
+  }
+}
+
+message ExecuteRequest {
+  string eid = 1;
+  string code = 2;
+  string stdin = 3;
+}
+
+message ExecuteResponse {
+  string eid = 1;
+  string stdout = 2;
+  uint32 exit_code = 3;
+}
