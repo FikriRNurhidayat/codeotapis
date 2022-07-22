@@ -1,0 +1,117 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Golang Executor Service",
+    "version": "1.0",
+    "contact": {
+      "name": "Fikri Rahmat Nurhidayat",
+      "url": "https://github.com/fikrirnurhidayat",
+      "email": "fikrirnurhidayat@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Goexe"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/executions": {
+      "post": {
+        "summary": "Execute",
+        "description": "Run golang code",
+        "operationId": "Goexe_Execute",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protoExecuteResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protoExecuteRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Goexe"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protoExecuteRequest": {
+      "type": "object",
+      "properties": {
+        "eid": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "stdin": {
+          "type": "string"
+        }
+      }
+    },
+    "protoExecuteResponse": {
+      "type": "object",
+      "properties": {
+        "eid": {
+          "type": "string"
+        },
+        "stdout": {
+          "type": "string"
+        },
+        "exit_code": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

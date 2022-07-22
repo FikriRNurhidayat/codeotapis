@@ -3,12 +3,11 @@ syntax = "proto3";
 package proto;
 
 import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/fikrirnurhidayat/codeotapis/proto/goexe;proto";
-
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Golang Executor Service";
@@ -24,8 +23,8 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 service Goexe {
   rpc Execute(ExecuteRequest) returns (ExecuteResponse) {
     option (google.api.http) = {
-      post : "/v1/executions"
-      body : "*"
+      post: "/v1/executions"
+      body: "*"
     };
 
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {

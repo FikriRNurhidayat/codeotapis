@@ -1,6 +1,16 @@
-generate:
+MAKEFLAGS += --silent
+
+mod:
+	go mod tidy
+	go mod vendor
+
+generate: format
 	rm -rf ./proto
-	docker run -v ${PWD}:/src -w /src --rm bufbuild/buf generate
+	rm -rf ./docs
+	buf generate
+
+format:
+	buf format -w
 
 lint:
-	docker run -v ${PWD}:/src -w /src --rm bufbuild/buf lint
+	buf lint
